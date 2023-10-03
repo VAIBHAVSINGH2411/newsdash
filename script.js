@@ -10,7 +10,7 @@ async function fetchData(query) {
 }
 fetchData("all").then(data => renderMain(data.articles))
 
-//menu btn
+
 let mobilemenu = document.querySelector(".mobile")
 let menuBtn = document.querySelector(".menuBtn")
 let menuBtnDisplay = true;
@@ -20,7 +20,7 @@ menuBtn.addEventListener("click", () => {
 })
 
 
-//render news 
+
 function renderMain(arr) {
     let mainHTML = ''
     for (let i = 0; i < arr.length; i++) {
