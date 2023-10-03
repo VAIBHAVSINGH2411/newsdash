@@ -15,9 +15,12 @@ let mobilemenu = document.querySelector(".mobile")
 let menuBtn = document.querySelector(".menuBtn")
 let menuBtnDisplay = true;
 
-menuBtn.addEventListener("click", () => {
-    mobilemenu.classList.toggle("hidden")
-})
+function changeColor(element) {
+    const listItems = document.querySelectorAll('nav ul li');
+    listItems.forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+}
+
 
 
 
