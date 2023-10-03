@@ -11,9 +11,17 @@ async function fetchData(query) {
 fetchData("all").then(data => renderMain(data.articles))
 
 
-let mobilemenu = document.querySelector(".mobile")
-let menuBtn = document.querySelector(".menuBtn")
+
+let mobilemenu = document.querySelector(".mobile");
+let menuBtn = document.querySelector(".menuBtn");
 let menuBtnDisplay = true;
+
+menuBtn.addEventListener("click", () => {
+    mobilemenu.classList.toggle("hidden");
+});
+
+// Rest of your JavaScript code
+
 
 function changeColor(element) {
     const listItems = document.querySelectorAll('nav ul li');
