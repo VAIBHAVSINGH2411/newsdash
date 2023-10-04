@@ -33,11 +33,11 @@ function changeColor(element) {
 
 
 function renderMain(arr) {
-    let mainHTML = ''
+    let mainHTML = '';
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].urlToImage) {
             mainHTML += ` <div class="card">
-                        <a href=${arr[i].url}>
+                        <a href="#" data-index="${i}" class="news-link">
                         <img src=${arr[i].urlToImage} lazy="loading" />
                         <h4>${arr[i].title}</h4>
                         <div class="publishbyDate">
@@ -50,13 +50,60 @@ function renderMain(arr) {
                         </div>
                         </a>
                      </div>
-        `
+        `;
         }
     }
 
-    document.querySelector("main").innerHTML = mainHTML
+    document.querySelector("main").innerHTML = mainHTML;
+    const newsLinks = document.querySelectorAll('.news-link');
+    newsLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const index = link.getAttribute('data-index');
+            openNewsDetailPage(arr[index]);
+        });
+    });
+}
+function openNewsDetailPage(newsData) {
+    const newWindow = window.open('newsDetail.html', '_blank');
+    console.log(newsData);
+    newWindow.onload = function () {
+        const detailedCard = newWindow.document.createElement('div');
+        detailedCard.className = 'detailed-card';
+
+        const detailedCardImage = newWindow.document.createElement('img');
+        detailedCardImage.src = newsData.urlToImage;
+        console.log(detailedCardImage.src);
+        detailedCardImage.alt = 'News Image';
+        detailedCardImage.className = 'detailed-card-image';
+
+        const detailedCardTitle = newWindow.document.createElement('h2');
+        detailedCardTitle.className = 'detailed-card-title';
+        detailedCardTitle.textContent = newsData.title;
+
+        const detailedCardSource = newWindow.document.createElement('p');
+        detailedCardSource.className = 'detailed-card-source';
+        detailedCardSource.textContent = newsData.source.name;
+
+        const detailedCardDate = newWindow.document.createElement('p');
+        detailedCardDate.className = 'detailed-card-date';
+        detailedCardDate.textContent = new Date(newsData.publishedAt).toLocaleDateString();
+
+        const detailedCardDescription = newWindow.document.createElement('p');
+        detailedCardDescription.className = 'detailed-card-description';
+        detailedCardDescription.textContent = newsData.description;
+        detailedCard.appendChild(detailedCardImage);
+        detailedCard.appendChild(detailedCardTitle);
+        detailedCard.appendChild(detailedCardSource);
+        detailedCard.appendChild(detailedCardDate);
+        detailedCard.appendChild(detailedCardDescription);
+        newWindow.document.body.appendChild(detailedCard);
+    };
 }
 
+function preventNavigation(event) {
+    event.preventDefault();
+}
 
 const searchBtn = document.getElementById("searchForm")
 const searchBtnMobile = document.getElementById("searchFormMobile")
