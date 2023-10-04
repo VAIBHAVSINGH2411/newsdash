@@ -20,9 +20,6 @@ menuBtn.addEventListener("click", () => {
     mobilemenu.classList.toggle("hidden");
 });
 
-// Rest of your JavaScript code
-
-
 function changeColor(element) {
     const listItems = document.querySelectorAll('nav ul li');
     listItems.forEach(item => item.classList.remove('active'));
